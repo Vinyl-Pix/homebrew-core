@@ -127,7 +127,11 @@ class Mpv < Formula
 
     bash_completion.install "etc/mpv.bash-completion" => "mpv"
     zsh_completion.install "etc/_mpv.zsh" => "_mpv"
-  end
+    # ここから追加
+    system "python3", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
+    prefix.install "build/mpv.app"
+    # ここまで追加
+end
 
   test do
     system bin/"mpv", "--ao=null", "--vo=null", test_fixtures("test.wav")
